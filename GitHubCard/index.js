@@ -10,6 +10,7 @@ axios.get('https://api.github.com/users/magoha01')
 .then(resp => {
   const user = resp.data;
   const newUser = cardMaker(user)
+  //step 4
   const entryPoint = document.querySelector('.cards');
   entryPoint.appendChild(newUser);
 }).catch(error => {
@@ -27,8 +28,9 @@ axios.get('https://api.github.com/users/magoha01')
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
-*/
+*/  
 
+//completed in .then() above.
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -40,8 +42,21 @@ axios.get('https://api.github.com/users/magoha01')
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = ["dbvker", "DatBoiLuiskrrt", "gumsanmarip", "Timbobeek", "lomelo-x","tvolchko"]
 
-//const followersArray = [];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then(resp => {
+       const myFollower = resp.data
+        const followerCard = cardMaker(myFollower)
+        const entryPoint = document.querySelector('.cards');
+        entryPoint.appendChild(followerCard);
+    }).catch(error => {
+      console.error(error);
+  })
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
